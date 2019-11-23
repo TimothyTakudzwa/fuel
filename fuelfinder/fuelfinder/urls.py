@@ -12,6 +12,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('buyer/', include('buyer.urls')),
     path('admin/', admin.site.urls),
+    path('supplier/', include('supplier.urls')),
 
     path('logout/', auth_views.LogoutView.as_view(template_name='supplier/accounts/logout.html'), name='logout'),
     path('register/', supplier_views.register, name='register'),
