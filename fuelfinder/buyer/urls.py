@@ -9,6 +9,7 @@ urlpatterns = [
     path('login', auth_views.LoginView.as_view(template_name='buyer/login.html'), name='buyer-login'),
     path('logout', auth_views.LogoutView.as_view(template_name='buyer/logout.html'), name='buyer-logout'),
     path('profile', views.profile, name='buyer-profile'),
+    path('fuel', views.fuel_request, name='fuel-request'),
 ]
 
 if settings.DEBUG: 
