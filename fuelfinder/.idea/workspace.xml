@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c36155b2-67ea-4c49-b53e-fabb163842cc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/supplier/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/supplier/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/supplier/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fuelfinder/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/fuelfinder/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/supplier/templates/supplier/accounts/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/templates/supplier/accounts/account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/supplier/templates/supplier/accounts/change_password.html" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/templates/supplier/accounts/change_password.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/supplier/templates/supplier/accounts/fuel_request.html" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/templates/supplier/accounts/fuel_request.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/supplier/templates/supplier/accounts/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/templates/supplier/accounts/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/supplier/templates/supplier/accounts/logout.html" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/templates/supplier/accounts/logout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/supplier/templates/supplier/accounts/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/templates/supplier/accounts/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/supplier/templates/supplier/accounts/verification.html" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/templates/supplier/accounts/verification.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574460531033</updated>
       <workItem from="1574460532283" duration="4412000" />
-      <workItem from="1574517528148" duration="473000" />
+      <workItem from="1574517528148" duration="1299000" />
     </task>
     <servers />
   </component>
