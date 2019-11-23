@@ -44,4 +44,3 @@ class BuyerProfile(models.Model):
 
     class Meta:
         ordering = ['name']
-
