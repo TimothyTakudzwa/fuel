@@ -10,6 +10,7 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
+    path('buyer/', include('buyer.urls')),
     path('admin/', admin.site.urls),
 
     path('logout/', auth_views.LogoutView.as_view(template_name='supplier/accounts/logout.html'), name='logout'),
@@ -35,6 +36,8 @@ urlpatterns = [
     path('password-reset-complete/',
          auth_views.PasswordResetCompleteView.as_view(template_name='supplier/password/password_reset_complete.html'),
          name='password_reset_complete'),
+
+
 
 ]
 

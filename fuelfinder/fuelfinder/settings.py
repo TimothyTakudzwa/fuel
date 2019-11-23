@@ -133,6 +133,6 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'dashboard'
-LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'finder-home'
+LOGIN_URL = 'buyer-login'
 
