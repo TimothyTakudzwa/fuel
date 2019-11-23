@@ -41,7 +41,7 @@ def delete(request, phone_number):
 def supplier_user_create(request, sid):
     supplier = get_object_or_404(SupplierProfile, id=sid) 
     staff = SupplierContact.objects.filter(supplier_profile=supplier)
-    count = SupplierContact.objects.all().count()
+    count = staff.count()
     delete_form = ''
     edit_form = ''
     if request.method == 'POST':
@@ -50,8 +50,10 @@ def supplier_user_create(request, sid):
             raise Http404("Organisations has 50 users, delete some ")
         form = SupplierContactForm(request.POST)
         profile_form = UserUpdateForm(request.POST, instance=supplier)
+        staffer_edit_form = SupplierStaffEditForm()
 
         if profile_form.is_valid():
+            supplier.first_name = profile_form.first_name
             supplier = profile_form.save()
             messages.success(request, 'Your Changes Have Been Saved')
             return redirect('users:supplier_user_create', sid=supplier.id)
@@ -80,11 +82,12 @@ def supplier_user_create(request, sid):
     else:
         form = SupplierContactForm()
         profile_form = UserUpdateForm(instance=supplier)
+        staffer_edit_form = SupplierStaffEditForm()
 
 
 
     return render (request, 'users/add_user.html', {'form': form, 'supplier': supplier, 'staff': staff, 'count': count,
-     'delete_form':delete_form, 'edit_form': edit_form, 'profile_form':profile_form}) 
+     'delete_form':delete_form, 'edit_form': edit_form, 'profile_form':profile_form, 'staffer_edit_form':staffer_edit_form}) 
 
 def edit_supplier(request,id):
     supplier = get_object_or_404(SupplierProfile, id=id)
