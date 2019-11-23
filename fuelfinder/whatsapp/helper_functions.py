@@ -17,6 +17,9 @@ def send_message(phone_number, message):
 
 def bot_action(user, message):
     if message.lower() == 'menu' and user.stage != 'registration':
+        user.position = 1
+        user.stage = 'requesting'
+        user.save()
         return requests_handler(user, message)
     if user.stage == 'registration':
         response_message = registration_handler(user, message)
@@ -40,7 +43,7 @@ def registration_handler(user, message):
         if message.lower() == 'yes':
             response_message = successful_integration
             user.stage = 'requesting'
-            user.position = 2
+            user.position = 1
             user.save()
         else:
             response_message = "Unfortunately you will have to contact your admin to make changes, but for the time being we will block this account"
@@ -49,13 +52,8 @@ def registration_handler(user, message):
     return response_message
 
 
-def requests_handler(user, message):
-    
+def requests_handler(user, message):    
     if user.position == 1:
-        response_message = "Hie, Would you like fuel today. \n\nType either *Yes* or *No*"
-        user.position = 2
-        user.save()
-    elif user.position == 2:
         response_message = "Which type of fuel do you want\n\n1. Petrol\n2. Diesel"
         user.position = 3
         user.save()
@@ -67,14 +65,15 @@ def requests_handler(user, message):
         user.position = 4
         user.save()
     elif user.position == 4:
-        fuel_request = FuelRequest.objects.get(name=user.name)
+        fuel_request = FuelRequest.objects.get(id=user.fuel_request.id)
         fuel_request.amount = message
         fuel_request.save()
-        response_message = "*Please select delivery method*\n\n1. Pick Up\n2. Delivery"
-        # response_message = fuel_finder()
+        user.position = 5
+        user.save()
+        response_message = "*Please select delivery method*\n\n1. Pick Up\n2. Delivery"       
     elif user.position == 5: 
         delivery_method = "SELF COLLECTION" if message == '1' else "DELIVERY"
-        fuel_request = FuelRequest.objects.get(name=user.name)
+        fuel_request = FuelRequest.objects.get(id=user.fuel_request.id)
         fuel_request.delivery_method = delivery_method
         fuel_request.save()
         user.position = 6 
@@ -82,7 +81,7 @@ def requests_handler(user, message):
         response_message = 'What is your payment method.\n\n1. ZWL(Cash)\n2. Ecocash\n3. RTGS(Swipe)/Transfer\n'
     elif user.position == 6:
         choice = payment_methods[int(message)]
-        fuel_request = FuelRequest.objects.get(name=user.name)
+        fuel_request = FuelRequest.objects.get(id=user.fuel_request.id)
         fuel_request.payment_method = choice
         fuel_request.save()
         user.position = 1
