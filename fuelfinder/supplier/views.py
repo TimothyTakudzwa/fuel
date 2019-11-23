@@ -170,3 +170,10 @@ def fuel_request(request):
             return redirect('fuel-request')
     return render(request, 'supplier/accounts/fuel_request.html', context=context)
 
+
+@login_required()
+def rate_supplier(request):
+    context = {
+        'title': 'Fuel Finder | Rate Supplier',
+    }
+    return render(request, 'supplier/accounts/ratings.html', context=context)

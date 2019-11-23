@@ -20,6 +20,7 @@ urlpatterns = [
     path('password-change/', supplier_views.change_password, name='change-password'),
     path('account/', supplier_views.account, name='account'),
     path('fuel-request/', supplier_views.fuel_request, name='fuel-request'),
+    path('rate-supplier', supplier_views.rate_supplier, name='rate-supplier'),
 
     path('index', whatsapp_views.index, name='index'),
     path('home/', finder_views.base, name='finder-home'),
