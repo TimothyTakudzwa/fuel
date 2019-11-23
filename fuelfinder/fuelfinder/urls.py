@@ -11,8 +11,12 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('buyer/', include('buyer.urls')),
+<<<<<<< HEAD
     path('admin/', admin.site.urls),
     path('supplier/', include('supplier.urls')),
+=======
+    path('admin/', admin.site.urls), 
+>>>>>>> 827eebc992c39b0cc01b72e324f70b8bd4ded600
 
     path('logout/', auth_views.LogoutView.as_view(template_name='supplier/accounts/logout.html'), name='logout'),
     path('register/', supplier_views.register, name='register'),
@@ -22,7 +26,7 @@ urlpatterns = [
     path('account/', supplier_views.account, name='account'),
     path('fuel-request/', supplier_views.fuel_request, name='fuel-request'),
 
-    path('index/', whatsapp_views.index, name='index'),
+    path('index', whatsapp_views.index, name='index'),
     path('home/', finder_views.base, name='finder-home'),
 
     path('password-reset/',
@@ -37,6 +41,7 @@ urlpatterns = [
     path('password-reset-complete/',
          auth_views.PasswordResetCompleteView.as_view(template_name='supplier/password/password_reset_complete.html'),
          name='password_reset_complete'),
+    path('users/', include(('users.urls','users'), namespace='users')),
 
 
 

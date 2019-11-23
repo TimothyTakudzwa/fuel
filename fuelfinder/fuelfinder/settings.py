@@ -73,11 +73,14 @@ WSGI_APPLICATION = 'fuelfinder.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'fuel',
+        'USER': 'fuel',
+        'PASSWORD': '12345#',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
@@ -133,6 +136,6 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'finder-home'
-LOGIN_URL = 'buyer-login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_URL = 'login'
 
