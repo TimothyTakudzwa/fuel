@@ -82,3 +82,13 @@ class TokenAuthentication(models.Model):
     def __str__(self):
         return str(self.user)
 
+
+class SupplierRating(models.Model):
+    rating = models.PositiveIntegerField(default=0)
+    supplier = models.ForeignKey(SupplierProfile, on_delete=models.DO_NOTHING, related_name='supplier_rating')
+
+    class Meta:
+        ordering = ['supplier', 'rating']
+
+    def __str__(self):
+        return f'{str(self.supplier)} - {str(self.rating)}'
