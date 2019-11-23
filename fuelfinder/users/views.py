@@ -13,17 +13,39 @@ def index(request):
 
 def suppliers_list(request):
     suppliers = SupplierProfile.objects.all()
-    return render(request, 'users/suppliers_list.html', {'suppliers': suppliers})
+    edit_form = SupplierProfileEditForm()
+    delete_form = ActionForm()
+    return render(request, 'users/suppliers_list.html', {'suppliers': suppliers, 'edit_form': edit_form, 'delete_form': delete_form})
+
+def suppliers_delete(request, sid):
+    supplier = SupplierProfile.objects.filter(id=sid).first()
+    if request.method == 'POST':
+        supplier.delete()    
+
+    return redirect('users:suppliers_list')
 
 # Begining Of Supplier Management
 
 def supplier_user_create(request, sid):
     supplier = get_object_or_404(SupplierProfile, id=sid) 
+    staff = SupplierContact.objects.filter(supplier_profile=supplier)
+    count = SupplierContact.objects.all().count()
+    delete_form = ''
+    edit_form = ''
     if request.method == 'POST':
         user_count = SupplierContact.objects.filter(supplier_profile=supplier).count()
         if user_count > 50:
             raise Http404("Organisations has 50 users, delete some ")
         form = SupplierContactForm(request.POST)
+        profile_form = UserUpdateForm(request.POST, instance=supplier)
+
+        if profile_form.is_valid():
+            supplier = profile_form.save()
+            messages.success(request, 'Your Changes Have Been Saved')
+            return redirect('users:supplier_user_create', sid=supplier.id)
+
+        
+
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
@@ -37,7 +59,7 @@ def supplier_user_create(request, sid):
             contact = SupplierContact.objects.create(user=user, cellphone=cellphone, telephone=telephone, supplier_profile=supplier)
             #contact.save()
             messages.success(request, ('Your profile was successfully updated!'))
-            return redirect('users:suppliers_list')
+            return redirect('users:supplier_user_create', sid=supplier.id)
             
         
         else:
@@ -45,9 +67,12 @@ def supplier_user_create(request, sid):
             messages.error(request, msg)
     else:
         form = SupplierContactForm()
+        profile_form = UserUpdateForm(instance=supplier)
 
 
-    return render (request, 'users/add_user.html', {'form': form, 'supplier': supplier}) 
+
+    return render (request, 'users/add_user.html', {'form': form, 'supplier': supplier, 'staff': staff, 'count': count,
+     'delete_form':delete_form, 'edit_form': edit_form, 'profile_form':profile_form}) 
 
 def edit_supplier(request,id):
     supplier = get_object_or_404(SupplierProfile, id=id)
