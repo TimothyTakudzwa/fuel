@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
-from buyer.models import BuyerProfile
+from buyer.models import BuyerProfile, FuelRequest
 
 
 class SupplierProfile(models.Model):
@@ -47,7 +47,6 @@ class FuelUpdate(models.Model):
     max_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     min_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     deliver = models.BooleanField(default=False)
-    # location = models.ForeignKey(Province, on_delete=models.DO_NOTHING, related_name='province_location')
     payment_method = models.CharField(max_length=200)
     date = models.DateField()
     time = models.TimeField()
@@ -58,26 +57,6 @@ class FuelUpdate(models.Model):
 
     def __str__(self):
         return f'{str(self.supplier)} - {str(self.max_amount)}l'
-
-
-class FuelRequest(models.Model):
-    name = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    split = models.BooleanField(default=False)
-    fuel_type = models.CharField(max_length=20)
-    payment_method = models.CharField(max_length=200)
-    delivery_method = models.CharField(max_length=200)
-    # location = models.ForeignKey(Province, on_delete=models.DO_NOTHING, related_name='request_location')
-    date = models.DateField(auto_now_add=True)
-    time = models.TimeField(auto_now_add=True)
-    is_deleted = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ['date', 'time', 'name']
-
-    def __str__(self):
-        return f'{str(self.name)} - {str(self.amount)}'
-
 
 
 class Transaction(models.Model):
@@ -92,3 +71,34 @@ class Transaction(models.Model):
     def __str__(self):
         return f'{str(self.request_name)} - {str(self.buyer_name)}'
 
+class Offer(models.Model):
+    quantity = models.IntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    supplier = models.ForeignKey(SupplierProfile, on_delete=models.DO_NOTHING, related_name='offer')
+    request = models.ForeignKey(FuelRequest, on_delete=models.DO_NOTHING, related_name='request')
+
+    class Meta:
+        ordering = ['quantity']
+
+   
+
+class TokenAuthentication(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='token_name')
+    token = models.CharField(max_length=16)
+
+    class Meta:
+        ordering = ['user']
+
+    def __str__(self):
+        return str(self.user)
+
+
+class SupplierRating(models.Model):
+    rating = models.PositiveIntegerField(default=0)
+    supplier = models.ForeignKey(SupplierProfile, on_delete=models.DO_NOTHING, related_name='supplier_rating')
+
+    class Meta:
+        ordering = ['supplier', 'rating']
+
+    def __str__(self):
+        return f'{str(self.supplier)} - {str(self.rating)}'

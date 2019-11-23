@@ -5,6 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
+*.pyc
 
 # Distribution / packaging
 .Python
@@ -20,6 +21,7 @@ lib64/
 parts/
 sdist/
 var/
+__pycache__/
 wheels/
 *.egg-info/
 .installed.cfg

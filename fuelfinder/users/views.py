@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from supplier.models import *
 from supplier.forms import *
+from buyer.models import *
+from buyer.forms import *
 from .forms import *
 
 from datetime import datetime
@@ -23,6 +25,16 @@ def suppliers_delete(request, sid):
         supplier.delete()    
 
     return redirect('users:suppliers_list')
+
+def buyers_list(request):
+    buyers = BuyerProfile.objects.all()
+    return render(request, 'users/buyers_list.html', {'buyers': buyers})
+
+def delete(request, phone_number):
+    #byr = get_object_or_404(BuyerProfile, phone_number)
+    buyer = BuyerProfile.objects.filter(phone_number=phone_number).first()
+    buyer.delete()
+    return redirect('users:buyers_list')
 
 # Begining Of Supplier Management
 
