@@ -8,7 +8,7 @@ from PIL import Image
 
 class FuelRequest(models.Model):
     name = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    amount = models.IntegerField(max_digits=10, decimal_places=2, default=0)
+    amount = models.IntegerField(default=0)
     split = models.BooleanField(default=False)
     fuel_type = models.CharField(max_length=20)
     payment_method = models.CharField(max_length=200)
