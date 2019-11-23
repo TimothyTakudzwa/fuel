@@ -11,12 +11,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('buyer/', include('buyer.urls')),
-<<<<<<< HEAD
-    path('admin/', admin.site.urls),
-    path('supplier/', include('supplier.urls')),
-=======
     path('admin/', admin.site.urls), 
->>>>>>> 827eebc992c39b0cc01b72e324f70b8bd4ded600
 
     path('logout/', auth_views.LogoutView.as_view(template_name='supplier/accounts/logout.html'), name='logout'),
     path('register/', supplier_views.register, name='register'),
