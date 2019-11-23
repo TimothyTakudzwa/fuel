@@ -16,7 +16,7 @@ def send_message(phone_number, message):
 
 
 def bot_action(user, message):
-    if message.lower(0) == 'menu' and user.stage != 'registration':
+    if message.lower() == 'menu' and user.stage != 'registration':
         return requests_handler(user, message)
     if user.stage == 'registration':
         response_message = registration_handler(user, message)
@@ -28,16 +28,17 @@ def bot_action(user, message):
 
 
 def registration_handler(user, message):
-    if user.position == 1:
-        full_name = user.first_name + " " + user.last_name
+    if user.position == 0:
+        full_name = user.name.first_name.capitalize() + " " + user.name.last_name.capitalize()
         response_message = greetings_message.format(full_name)
-        user.position = 2
+        user.position = 1
         user.save()
-    elif user.position == 2:
+        print(response_message)
+    elif user.position == 1:
         if message.lower() == 'yes':
             response_message = successful_integration
             user.stage = 'requesting'
-            user.position = 1
+            user.position = 2
             user.save()
         else:
             response_message = "Unfortunately you will have to contact your admin to make changes, but for the time being we will block this account"
@@ -58,7 +59,7 @@ def requests_handler(user, message):
     elif user.position == 3:
         response_message = "How many litres do you want?"
         fuel_type = "Petrol" if message == '1' else "Diesel"
-        FuelRequest.objects.create(fuel_type=fuel_type)
+        FuelRequest.objects.create(fuel_type=fuel_type, name=user)
 
         user.position = 4
         user.save()

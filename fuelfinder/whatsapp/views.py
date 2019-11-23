@@ -15,17 +15,16 @@ def index(request):
     message = data['message']
     phone_number = data['phone_number']
     token = 'sq0pk8hw4iclh42b'
-    print(message, phone_number )
     if token != 'sq0pk8hw4iclh42b':
         return HttpResponse('Unauthorized')
     else:
         check = BuyerProfile.objects.filter(phone_number = phone_number).exists()
         if check:
             user = BuyerProfile.objects.filter(phone_number=phone_number).first()
-            if user.is_active:
-                response_message = bot_action(user, message)
+            if user.name.is_active:
+                response_message = bot_action(user, message)                
             else:
-                response_message = "Your account has been blocked"
+                response_message = "Your cannot use this, please create a buyer account and then add the phone number"
         else:
             response_message = "We could not find an account associated with you"
     return HttpResponse(response_message)

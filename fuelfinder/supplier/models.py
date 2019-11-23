@@ -67,7 +67,6 @@ class FuelRequest(models.Model):
     fuel_type = models.CharField(max_length=20)
     payment_method = models.CharField(max_length=200)
     delivery_method = models.CharField(max_length=200)
-    # location = models.ForeignKey(Province, on_delete=models.DO_NOTHING, related_name='request_location')
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)

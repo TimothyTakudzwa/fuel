@@ -1,14 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from supplier.models import FuelRequest
 
 # Create your models here.
  
 class BuyerProfile(models.Model):
     name = models.OneToOneField(User, on_delete=models.CASCADE, related_name='buyer_name')
-    # fuel_request = models.OneToOneField(FuelRequest, on_delete=models.CASCADE, related_name='fuel')
+    fuel_request = models.OneToOneField(FuelRequest, on_delete=models.CASCADE, related_name='fuel')
     phone_number = models.CharField(max_length=20, default='')
-    stage = models.CharField(max_length=20, default='')
+    stage = models.CharField(max_length=20, default='registration')
     position = models.IntegerField(default=0)
     image = models.ImageField(default='default.png', upload_to='buyer_profile_pics')
 
