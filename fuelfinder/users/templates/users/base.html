@@ -62,12 +62,19 @@
            </li>
  
            <li class="nav-item">
-             <a class="nav-link" href="./buyers_list.html">
+             <a class="nav-link" href="{% url 'users:suppliers_list' %}">
                <i class="material-icons">people</i>
                <p>Suppliers</p>
              </a>
            </li>  
- 
+
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:buyers_list' %}">
+              <i class="material-icons">people</i>
+              <p>Buyers</p>
+            </a>
+          </li>  
+          
            <li class="nav-item ">
              <a class="nav-link" href="./add_user.html">
                <i class="material-icons">person</i>
@@ -75,14 +82,7 @@
              </a>
            </li>
            
-           <li class="nav-item ">
-             <a class="nav-link" href="./update_user.html">
-               <i class="material-icons">person</i>
-               <p>Update User</p>
-             </a>
-           </li>
-             
- 
+           
            <li class="nav-item">
              <a class="nav-link" href="#">
                <i class="material-icons">close</i>
