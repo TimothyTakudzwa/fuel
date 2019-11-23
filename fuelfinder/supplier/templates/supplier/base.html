@@ -13,6 +13,9 @@
    <!--     Fonts and icons     -->
    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+   <!--datatable-->
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
    <!-- CSS Files -->
    <link href="./static/assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
  </head>
@@ -27,63 +30,33 @@
      -->
        <div class="logo">
          <a href="#" class="simple-text logo-normal">
-           Creative Tim
+           Fuel Finder
          </a>
        </div>
        <div class="sidebar-wrapper">
          <ul class="nav">
-           <li class="nav-item active  ">
-             <a class="nav-link" href="#">
-               <i class="material-icons">dashboard</i>
-               <p>Dashboard</p>
-             </a>
-           </li>
-           <li class="nav-item ">
-             <a class="nav-link" href="#">
-               <i class="material-icons">person</i>
-               <p>User Profile</p>
-             </a>
-           </li>
-           <li class="nav-item ">
-             <a class="nav-link" href="#">
-               <i class="material-icons">content_paste</i>
-               <p>Table List</p>
-             </a>
-           </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="#">
+              <i class="material-icons">content_paste</i>
+              <p>Requests</p>
+            </a>
+          </li>
            <li class="nav-item ">
              <a class="nav-link" href="#">
                <i class="material-icons">library_books</i>
-               <p>Typography</p>
+               <p>Transactions</p>
              </a>
            </li>
+           <li class="nav-item ">
+            <a class="nav-link" href="#">
+              <i class="material-icons">person</i>
+              <p>User Profile</p>
+            </a>
+          </li>
            <li class="nav-item ">
              <a class="nav-link" href="#">
                <i class="material-icons">bubble_chart</i>
-               <p>Icons</p>
-             </a>
-           </li>
-           <li class="nav-item ">
-             <a class="nav-link" href="#">
-               <i class="material-icons">location_ons</i>
-               <p>Maps</p>
-             </a>
-           </li>
-           <li class="nav-item ">
-             <a class="nav-link" href="#">
-               <i class="material-icons">notifications</i>
-               <p>Notifications</p>
-             </a>
-           </li>
-           <li class="nav-item ">
-             <a class="nav-link" href="#">
-               <i class="material-icons">language</i>
-               <p>RTL Support</p>
-             </a>
-           </li>
-           <li class="nav-item active-pro ">
-             <a class="nav-link" href="#">
-               <i class="material-icons">unarchive</i>
-               <p>Upgrade to PRO</p>
+               <p>Logout</p>
              </a>
            </li>
          </ul>
@@ -103,15 +76,6 @@
              <span class="navbar-toggler-icon icon-bar"></span>
            </button>
            <div class="collapse navbar-collapse justify-content-end">
-             <form class="navbar-form">
-               <div class="input-group no-border">
-                 <input type="text" value="" class="form-control" placeholder="Search...">
-                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                   <i class="material-icons">search</i>
-                   <div class="ripple-container"></div>
-                 </button>
-               </div>
-             </form>
              <ul class="navbar-nav">
                <li class="nav-item">
                  <a class="nav-link" href="#">
@@ -162,7 +126,7 @@
              <ul>
                <li>
                  <a href="#">
-                   Creative Tim
+                   Fuel Finder
                  </a>
                </li>
                <li>
@@ -186,8 +150,7 @@
              &copy;
              <script>
                document.write(new Date().getFullYear())
-             </script>, made with <i class="material-icons">favorite</i> by
-             <a href="https://www.intelliafrica.solutions" target="_blank">Creative Tim</a> for a better web.
+             </script>, Intelli Africa
            </div>
          </div>
        </footer>
