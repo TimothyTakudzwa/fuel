@@ -72,3 +72,14 @@ class Transaction(models.Model):
     def __str__(self):
         return f'{str(self.request_name)} - {str(self.buyer_name)}'
 
+class Offer(models.Model):
+    quantity = models.IntegerField()
+    price = models.DecimalField(decimal_places=2)
+    supplier = models.ForeignKey(SupplierProfile, on_delete=models.DO_NOTHING, related_name='offer')
+    request = models.ForeignKey(FuelRequest, on_delete=models.DO_NOTHING, related_name='request')
+
+    class Meta:
+        ordering = ['quantity']
+
+   
+

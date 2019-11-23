@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import requests
 from .constants import *
-from supplier.models import FuelRequest
+from supplier.models import FuelRequest, 
 
 
 def send_message(phone_number, message):
@@ -22,6 +22,8 @@ def bot_action(user, message):
         response_message = registration_handler(user, message)
     elif user.stage == 'requesting':
         response_message = requests_handler(user, message)
+    elif user.stage == 'transacting':
+        response_message = transacting_handler(user, message)
     else:
         response_message = ''
     return response_message
@@ -60,21 +62,43 @@ def requests_handler(user, message):
     elif user.position == 3:
         response_message = "How many litres do you want?"
         fuel_type = "Petrol" if message == '1' else "Diesel"
-        print("---------------------------------")
         fuel_request = FuelRequest.objects.create(fuel_type=fuel_type, name=user.name)
-        print(fuel_request)
         user.fuel_request = fuel_request
         user.position = 4
         user.save()
     elif user.position == 4:
-        print(user.fuel_request.amount, message)
         fuel_request = FuelRequest.objects.get(name=user.name)
         fuel_request.amount = message
         fuel_request.save()
-        response_message = "Got to this stage"
+        response_message = "*Please select delivery method*\n\n1. Pick Up\n2. Delivery"
         # response_message = fuel_finder()
+    elif user.position == 5: 
+        delivery_method = "SELF COLLECTION" if message == '1' else "DELIVERY"
+        fuel_request = FuelRequest.objects.get(name=user.name)
+        fuel_request.delivery_method = delivery_method
+        fuel_request.save()
+        user.position = 6 
+        user.save()
+        response_message = 'What is your payment method.\n\n1. ZWL(Cash)\n2. Ecocash\n3. RTGS(Swipe)/Transfer\n'
+    elif user.position == 6:
+        choice = payment_methods[int(message)]
+        fuel_request = FuelRequest.objects.get(name=user.name)
+        fuel_request.payment_method = choice
+        fuel_request.save()
+        user.position = 1
+        user.stage = 'transacting'
+        user.save()
+        response_message = suggested_choice
     return response_message
 
+def transacting_handler(user, message):
+    if user.position == 1:
+        if 'accept' in message.lower():
+            offer_id = ''.join(x for x in message if x.isdigit())
+            offer = 
 
-def fuel_finder(fuel_request, user_id):
-    pass
+
+
+
+def fuel_finder():
+    return 
