@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import requests
 from .constants import *
-from supplier.models import FuelRequest, 
+from supplier.models import FuelRequest, Offer, Transaction
 
 
 def send_message(phone_number, message):
@@ -95,7 +95,13 @@ def transacting_handler(user, message):
     if user.position == 1:
         if 'accept' in message.lower():
             offer_id = ''.join(x for x in message if x.isdigit())
-            offer = 
+            offer =  Offer.objects.filter(id=offer_id).first()
+            if offer is not None:
+                Transaction.objects.create(request_name=offer.request, buyer_name=user)
+                response_message = 'This transaction has been completed'
+        elif message.lower() == 'wait':
+            pass
+    return response_message
 
 
 

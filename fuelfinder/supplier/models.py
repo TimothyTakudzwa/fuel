@@ -73,7 +73,7 @@ class Transaction(models.Model):
 
 class Offer(models.Model):
     quantity = models.IntegerField()
-    price = models.DecimalField(decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     supplier = models.ForeignKey(SupplierProfile, on_delete=models.DO_NOTHING, related_name='offer')
     request = models.ForeignKey(FuelRequest, on_delete=models.DO_NOTHING, related_name='request')
 
