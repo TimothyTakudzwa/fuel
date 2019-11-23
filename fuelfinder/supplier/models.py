@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from buyer.models import BuyerProfile
 
 
 class SupplierProfile(models.Model):
@@ -78,23 +79,10 @@ class FuelRequest(models.Model):
         return f'{str(self.name)} - {str(self.amount)}'
 
 
-class BuyerProfile(models.Model):
-    name = models.OneToOneField(User, on_delete=models.CASCADE, related_name='name')
-    # fuel_request = models.OneToOneField(FuelRequest, on_delete=models.CASCADE, related_name='fuel')
-    phone_number = models.CharField(max_length=20)
-    stage = models.CharField(max_length=20)
-    position = models.IntegerField(default=0)
-
-    class Meta:
-        ordering = ['name']
-
-    def __str__(self):
-        return str(self.id)
-
 
 class Transaction(models.Model):
-    request_id = models.ForeignKey(FuelRequest, on_delete=models.DO_NOTHING)
-    buyer_id = models.ForeignKey(BuyerProfile, on_delete=models.DO_NOTHING)
+    request_name = models.ForeignKey(FuelRequest, on_delete=models.DO_NOTHING, related_name='fuel_request')
+    buyer_name = models.ForeignKey(BuyerProfile, on_delete=models.DO_NOTHING, related_name='buyinh_fuel')
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
 
@@ -102,5 +90,5 @@ class Transaction(models.Model):
         ordering = ['date', 'time']
 
     def __str__(self):
-        return f'{str(self.buyer_id)} - {str(self.request_id)}'
+        return f'{str(self.request_name)} - {str(self.buyer_name)}'
 
