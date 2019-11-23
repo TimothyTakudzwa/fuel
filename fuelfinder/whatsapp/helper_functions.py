@@ -67,9 +67,10 @@ def requests_handler(user, message):
         user.position = 4
         user.save()
     elif user.position == 4:
-        print(user.fuel_request.amount, amount)
-        user.fuel_request.amount = message
-        user.save()
+        print(user.fuel_request.amount, message)
+        fuel_request = FuelRequest.objects.get(name=user.name)
+        fuel_request.amount = message
+        fuel_request.save()
         response_message = "Got to this stage"
         # response_message = fuel_finder()
     return response_message
