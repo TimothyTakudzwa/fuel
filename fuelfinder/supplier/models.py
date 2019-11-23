@@ -46,7 +46,7 @@ class FuelUpdate(models.Model):
     max_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     min_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     deliver = models.BooleanField(default=False)
-    location = models.ForeignKey(Province, on_delete=models.DO_NOTHING, related_name='province_location')
+    # location = models.ForeignKey(Province, on_delete=models.DO_NOTHING, related_name='province_location')
     payment_method = models.CharField(max_length=200)
     date = models.DateField()
     time = models.TimeField()
@@ -66,7 +66,7 @@ class FuelRequest(models.Model):
     fuel_type = models.CharField(max_length=20)
     payment_method = models.CharField(max_length=200)
     delivery_method = models.CharField(max_length=200)
-    location = models.ForeignKey(Province, on_delete=models.DO_NOTHING, related_name='request_location')
+    # location = models.ForeignKey(Province, on_delete=models.DO_NOTHING, related_name='request_location')
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)
@@ -79,14 +79,14 @@ class FuelRequest(models.Model):
 
 
 class BuyerProfile(models.Model):
-    id = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='file')
-    fuel_request = models.OneToOneField(FuelRequest, on_delete=models.CASCADE, primary_key=True, )
+    name = models.OneToOneField(User, on_delete=models.CASCADE, related_name='name')
+    # fuel_request = models.OneToOneField(FuelRequest, on_delete=models.CASCADE, related_name='fuel')
     phone_number = models.CharField(max_length=20)
     stage = models.CharField(max_length=20)
-    position = models.IntegerField()
+    position = models.IntegerField(default=0)
 
     class Meta:
-        ordering = ['id']
+        ordering = ['name']
 
     def __str__(self):
         return str(self.id)
