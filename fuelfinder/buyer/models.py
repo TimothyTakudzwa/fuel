@@ -3,9 +3,13 @@ from django.contrib.auth.models import User
 from PIL import Image
 
 # Create your models here.
-
+ 
 class BuyerProfile(models.Model):
-    buyer = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.OneToOneField(User, on_delete=models.CASCADE, related_name='buyer_name')
+    # fuel_request = models.OneToOneField(FuelRequest, on_delete=models.CASCADE, related_name='fuel')
+    phone_number = models.CharField(max_length=20, default='')
+    stage = models.CharField(max_length=20, default='')
+    position = models.IntegerField(default=0)
     image = models.ImageField(default='default.png', upload_to='buyer_profile_pics')
 
     def __str__(self):
@@ -20,4 +24,10 @@ class BuyerProfile(models.Model):
             output_size = (300,300)
             img.thumbnail(output_size)
             img.save(self.image.path)    
- 
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return str(self.name)
+

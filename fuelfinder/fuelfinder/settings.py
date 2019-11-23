@@ -75,9 +75,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'fuel',
+        'USER': 'fuel',
+        'PASSWORD': '12345#',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
