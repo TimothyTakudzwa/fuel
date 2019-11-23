@@ -47,7 +47,6 @@ class FuelUpdate(models.Model):
     max_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     min_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     deliver = models.BooleanField(default=False)
-    # location = models.ForeignKey(Province, on_delete=models.DO_NOTHING, related_name='province_location')
     payment_method = models.CharField(max_length=200)
     date = models.DateField()
     time = models.TimeField()
@@ -82,4 +81,14 @@ class Offer(models.Model):
         ordering = ['quantity']
 
    
+
+class TokenAuthentication(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='token_name')
+    token = models.CharField(max_length=16)
+
+    class Meta:
+        ordering = ['user']
+
+    def __str__(self):
+        return str(self.user)
 
