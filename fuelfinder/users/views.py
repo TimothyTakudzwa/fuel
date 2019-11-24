@@ -152,8 +152,10 @@ def buyer_user_create(request, sid):
             contact = BuyerContact.objects.create(user=user, phone=cellphone, buyer_profile=buyer)
 
             token = secrets.token_hex(12)
+            user = User.objects.get(first_name=first_name)
+            TokenAuthentication.objects.create(token=token, user=user)
             domain = request.get_host()
-            url = f'{domain}/verification/{token}/{user.id}'
+            url = f'{domain}/verification/{token}/{user.id}' 
 
             sender = f'Fuel Finder Accounts<tests@marlvinzw.me>'
             subject = 'User Registration'
@@ -172,8 +174,9 @@ def buyer_user_create(request, sid):
             #contact.save()
             messages.success(request, ('Your profile was successfully updated!'))
             return redirect('users:buyer_user_create', sid=buyer.id)
-            
-        
+            print(token)
+            print("above is the token")
+
         else:
             msg = "Error in Information Submitted"
             messages.error(request, msg)
