@@ -213,7 +213,7 @@
                                   </div>
                                   <div class="modal-body">
                                           {% load crispy_forms_tags %}
-                                          <form action="{% url 'users:suppliers_delete' supplier.id %}" method="POST">
+                                          <form action="{% url 'users:supplier_user_delete' staffer.id supplier.id %}" method="POST">
                                           {{ delete_form }}
                                           {% csrf_token %}
                                           <p>Are You Sure You Want To Delete {{ staffer.user.first_name|title }}</p>
