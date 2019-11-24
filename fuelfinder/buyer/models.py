@@ -3,9 +3,6 @@ from django.contrib.auth.models import User
 from PIL import Image
 
 
-# Create your models here.
- 
-
 class FuelRequest(models.Model):
     name = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     amount = models.IntegerField(default=0)
@@ -23,6 +20,7 @@ class FuelRequest(models.Model):
     def __str__(self):
         return f'{str(self.name)} - {str(self.amount)}'
 
+
 class BuyerProfile(models.Model):
     name = models.OneToOneField(User, on_delete=models.CASCADE, related_name='buyer_name')
     fuel_request = models.OneToOneField(FuelRequest, on_delete=models.CASCADE, related_name='fuel', null=True)
@@ -32,7 +30,7 @@ class BuyerProfile(models.Model):
     image = models.ImageField(default='default.png', upload_to='buyer_profile_pics')
 
     def __str__(self):
-        return f' {self.buyer.username} Profile '
+        return f' {self.name.username} Profile '
 
     def save(self, *args, **kwargs):
         super(BuyerProfile, self).save(*args, **kwargs)
@@ -46,7 +44,4 @@ class BuyerProfile(models.Model):
 
     class Meta:
         ordering = ['name']
-
-    def __str__(self):
-        return str(self.name)
 
