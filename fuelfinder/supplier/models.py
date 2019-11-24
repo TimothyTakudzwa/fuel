@@ -84,7 +84,7 @@ class Offer(models.Model):
 
 class TokenAuthentication(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='token_name')
-    token = models.CharField(max_length=16)
+    token = models.CharField(max_length=100)
 
     class Meta:
         ordering = ['user']

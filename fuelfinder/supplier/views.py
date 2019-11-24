@@ -37,6 +37,7 @@ def register(request):
             user.save()
 
             token = secrets.token_hex(12)
+            TokenAuthentication.objects.create(token=token, user = user)
             domain = request.get_host()
             url = f'{domain}/verification/{token}/{user.id}'
 
@@ -65,15 +66,21 @@ def verification(request, token, user_id):
         'title': 'Fuel Finder | Verification',
     }
     check = User.objects.filter(id=user_id)
-
+    print("here l am ")
+    
     if check.exists():
         user = User.objects.get(id=user_id)
+        print(user)
 
         token_check = TokenAuthentication.objects.filter(user=user, token=token)
-        if token_check.exists():
+        result = bool([token_check])
+        print(result)
+        if result == True:
+            print("tapindawo")
             user.is_active = True
             user.save()
             messages.success(request, f'Welcome {user.username}, your account is now verified')
+
         else:
             messages.warning(request, 'Wrong verification token')
             return redirect('login')
