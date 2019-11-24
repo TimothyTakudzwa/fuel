@@ -22,6 +22,10 @@ def validate_user_email(value):
         raise ValidationError('%(value)s is already registered',
             params={'value': value},)
 
+class SupplierStaffEditForm(forms.ModelForm):
+    class Meta:
+        model = SupplierContact
+        fields = ['telephone', 'cellphone', 'active']
 class SupplierContactForm(forms.Form):
     first_name = forms.CharField(label='First Name(s)', required=True,
                                 max_length=30)
