@@ -1,24 +1,20 @@
 {% extends "users/base.html" %}
 {% block body %}
 <div >
-    <h1 class="display-3">Super User Dashboard</h1>
+    <h1 class="display-3">Buyer Admin Dashboard</h1>
     <hr class="my-2">
     
-    <p class="lead">
-        {{ supplier.name }}'s Profile / <a href="{% url 'users:suppliers_list' %}">Back To Suppliers</a>
-
-    </p>
 </div>
 
 <div class="card text-center" style="max-width: 180rem;">
     <div class="card-header">
     <h3>
-      {{ supplier.name }}'s Profile
+      {{ buyer.name }}'s Profile
     </h3>  
     </div>
     <div class="card-body">
       <div class="col text-center">
-          <button class="btn btn-info" data-toggle="collapse" data-target="#demo" style="margin-bottom: 30px; background-color: #b0b0b0;">Details</button>
+          <button class="btn btn-info" data-toggle="collapse" data-target="#demo" style="margin-bottom: 30px; background-color: #b0b0b0;">Show Details</button>
               
               <div id="demo" class="collapse"> 
               <table class="table table-striped">
@@ -29,16 +25,16 @@
                   </thead>
                   <tbody>
                   <tr>
-                    <td style="font-size: 1.5em;"><code class="w3-codespan">Street</code></td>
-                    <td style="font-size: 1.5em;">{{ supplier.street }}</td>
+                    <td style="font-size: 1.5em;"><code class="w3-codespan">Name</code></td>
+                    <td style="font-size: 1.5em;">{{ buyer.name }}</td>
                   </tr>
                   <tr>
-                    <td style="font-size: 1.5em;"><code class="w3-codespan">City</code></td>
-                    <td style="font-size: 1.5em;">{{ supplier.city }}</td>
+                    <td style="font-size: 1.5em;"><code class="w3-codespan">Phone Number</code></td>
+                    <td style="font-size: 1.5em;">{{ buyer.phone_number }}</td>
                   </tr>
                   <tr>
-                    <td style="font-size: 1.5em;"><code class="w3-codespan">Province</code></td>
-                    <td style="font-size: 1.5em;">{{ supplier.province }}</td>
+                    <td style="font-size: 1.5em;"><code class="w3-codespan">Stage</code></td>
+                    <td style="font-size: 1.5em;">{{ buyer.stage }}</td>
                   </tr>
                   <tr>
                     <td style="font-size: 1.5em;"><code class="w3-codespan">STAFF COUNT</code></td>
@@ -50,17 +46,17 @@
               </div>
       </div>                   
       <div class="btn-group">
-        <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{supplier.id}}" style="color: white">Add A New User.</a>
-        <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit_profile{{supplier.id}}" style="color: white">Edit Profile.</a>
+        <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#{{buyer.id}}" style="color: white">Add A New User.</a>
+        <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit_profile{{buyer.id}}" style="color: white">Edit Profile.</a>
       </div>  
     </div>
   </div>
 
-  <div class="modal fade" id="{{supplier.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="{{buyer.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add User - {{ supplier.name }}</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Add User - {{ buyer.name }}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -68,7 +64,7 @@
         <div class="modal-body">  
 
             {% load crispy_forms_tags %}
-            <form action="{% url 'users:supplier_user_create' supplier.id %}" method="POST">
+            <form action="{% url 'users:buyer_user_create' buyer.id %}" method="POST">
             {{ form|crispy }}
             {% csrf_token %}
             <button class="btn btn-primary" type="submit">Add User Profile</button>
@@ -82,11 +78,11 @@
     </div>
   </div>
 
-  <div class="modal fade" id="edit_profile{{supplier.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="edit_profile{{buyer.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Profile - {{ supplier.name }}</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Edit Profile - {{ buyer.name }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -94,7 +90,7 @@
           <div class="modal-body">  
   
               {% load crispy_forms_tags %}
-              <form action="{% url 'users:supplier_user_create' supplier.id %}" method="POST">
+              <form action="{% url 'users:buyer_user_create' buyer.id %}" method="POST">
               {{ profile_form|crispy }}
               {% csrf_token %}
               <button class="btn btn-primary" type="submit">Save Changes</button>
@@ -111,7 +107,7 @@
   <div class="col-md-12">
       <div class="card" style="background-color:white">
           <div class="card-header card-header-primary">
-          <h4 class="card-title ">{{supplier.name}}'s Staff</h4>
+          <h4 class="card-title ">{{buyer.name}}'s Staff</h4>
           </div>
 
   
@@ -124,11 +120,8 @@
                       Name
                      </th>
                      <th style="color:white;">
-                       Cellphone
+                       Phone
                      </th>
-                     <th style="color:white;">
-                        Telephone 
-                       </th>
                        <th style="color:white;">
                          Email 
                         </th>
@@ -136,9 +129,8 @@
                  <tbody>
                      {% for staffer in staff %}
                      <tr>
-                         <td>{{staffer.user.username}}</td>
-                         <td>{{staffer.cellphone}}</td>
-                         <td>{{staffer.telephone}}</td>
+                         <td>{{staffer.user.first_name}}</td>
+                         <td>{{staffer.phone}}</td>
                          <td>{{staffer.user.email}}</td>
                          <td>
                              <div class="btn-group">
@@ -148,8 +140,7 @@
 
                              </div>
                           </td>
-                      <!--<td><a href="{% url 'users:supplier_user_create' supplier.id %}" class="btn btn-primary">View Supplier</a></td>-->
-                      <!-- Staffer Details Modal -->
+                     
                       <div class="modal fade" id="{{staffer.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                               <div class="modal-content">
@@ -160,11 +151,9 @@
                                   </button>
                                   </div>
                                   <div class="modal-body">
-                                      <p>Username : {{staffer.user.username}}</p>
-                                      <p>Cellphone : {{staffer.cellphone}}</p>
-                                      <p>Telephone : {{staffer.telephone}}</p>
-                                      <p>Email : {{staffer.user.email}}</p>
-                                      <p>Created : {{staffer.created}}</p>
+                                      <p>NAME: {{staffer.user.first_name}}</p>
+                                      <p>CELLPHONE: {{staffer.phone}}</p>
+                                      <p>EMAIL: {{staffer.user.email}}</p>
                                       
                                       
                                   </div>
@@ -174,7 +163,7 @@
                               </div>
                               </div>
                           </div>
-                      <!-- Staffer Edit Modal -->
+                      <!-- Buyer Edit Modal -->
                       <div class="modal fade" id="edit_{{staffer.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                               <div class="modal-content">
@@ -184,15 +173,13 @@
                                       <span aria-hidden="true">&times;</span>
                                   </button>
                                   </div>
-                      
-
                                   <div class="modal-body">
-                                      {% load crispy_forms_tags %}
-                                      <form action="{% url 'users:supplier_user_create' supplier.id %}" method="POST">
-                                      {{ staffer_edit_form|crispy }}
-                                      {% csrf_token %}
-                                      <button class="btn btn-primary" type="submit">Save Changes</button>
-                                      </form>
+                                          {% load crispy_forms_tags %}
+                                          <form action="{% url 'users:buyer_user_create' buyer.id %}" method="POST">
+                                          {{ edit_form|crispy}}
+                                          {% csrf_token %}
+                                          <button class="btn btn-primary" type="submit">Save Changes</button>
+                                          </form>
                                   </div>
                                   <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -201,7 +188,7 @@
                               </div>
                           </div>
                           
-                      <!-- Staffer Delete Modal -->
+                      <!-- Buyer Delete Modal -->
                       <div class="modal fade" id="delete_{{staffer.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                               <div class="modal-content">
@@ -213,7 +200,7 @@
                                   </div>
                                   <div class="modal-body">
                                           {% load crispy_forms_tags %}
-                                          <form action="{% url 'users:suppliers_delete' supplier.id %}" method="POST">
+                                          <form action="{% url 'users:buyers_delete' buyer.id %}" method="POST">
                                           {{ delete_form }}
                                           {% csrf_token %}
                                           <p>Are You Sure You Want To Delete {{ staffer.user.first_name|title }}</p>
