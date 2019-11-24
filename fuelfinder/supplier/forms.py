@@ -52,6 +52,13 @@ class ProfilePictureUpdateForm(forms.ModelForm):
 
 
 class FuelRequestForm(forms.ModelForm):
+    OPTIONS= [
+    ('SELF COLLECTION', 'self collection'),
+    ('DELIVERY', 'delivery'),
+    ]
+
+    delivery_method = forms.CharField(label='Delivery Method', widget=forms.Select(choices=OPTIONS))
+    
     class Meta:
         model = FuelRequest
         fields = ['amount', 'split', 'payment_method', 'delivery_method', 'fuel_type']

@@ -44,30 +44,92 @@
                            <td>{{buyer.position}}</td>
                            <td>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#{{buyer.id}}">Edit</button>
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#{{buyer.phone_number}}">Delete</button>
+                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_{{buyer.id}}">View Details</button>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#edit_{{buyer.id}}">Edit</button>
+                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#delete_{{buyer.id}}">Delete</button>  
+                                 <a href="{% url 'users:buyer_user_create' buyer.id %}" class="btn btn-info btn-sm">More Details</a>
                                 
                             </div>
                         </td>
                     </tr>
-                    <div class="modal fade" id="{{buyer.phone_number}}"  role="dialog">
-                        <div class="modal-dialog">
-                            
-                              <!-- Modal content-->
-                              <div class="modal-content" >
-                                <div class="modal-header" style= "background:#603f91ef">
-                                  <h4 class="modal-title" style= "color:rgb(241, 235, 235)" > Hello !!</h4>
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body" style= "background:#f3f2f5ee" >
-                                    <p style="color: rgb(129, 35, 35)"><strong> Are you sure want to delete this buyer {{buyer.name}} ???</strong></p>
-                                </div>
-                                <div class="modal-footer" style= "background:#ecebeeef">
-                                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal">Cancel</button> <a href="{% url 'users:delete' buyer.phone_number %}"><button class="btn btn-danger btn-sm" style= "background:red"> Delete Buyer</button></a>
-                                  </div>
-                              </div>
+                    <div class="modal fade" id="detail_{{buyer.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{buyer.name}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                             </div>
+                            <div class="modal-body">
+                                <p>Name: {{buyer.name}}</p>
+                                <p>Phone: {{buyer.phone_number}}</p>
+                                <p>Stage: {{buyer.stage}}</p>
+                                <p>Position: {{buyer.position}}</p>
+                                
+                                
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        </div>
                     </div>
+
+
+                    <div class="modal fade" id="edit_{{buyer.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit {{buyer.name}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                    {% load crispy_forms_tags %}
+                                    <form action="{% url 'users:buyer_user_create' buyer.id %}" method="POST">
+                                    {{ edit_form|crispy}}
+                                    {% csrf_token %}
+                                    <button class="btn btn-primary" type="submit">Save Changes</button>
+                                    </form>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal fade" id="delete_{{buyer.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete {{buyer.name}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                    {% load crispy_forms_tags %}
+                                    <form action="{% url 'users:buyers_delete' buyer.id %}" method="POST">
+                                    {{ delete_form }}
+                                    {% csrf_token %}
+                                    <p>Are You Sure You Want To Delete {{ buyer.name|title }}</p>
+                                        <div class="btn-group">
+                                            <button class="btn btn-danger" type="submit">Yes</button>
+                                            <button class="btn btn-warning" data-dismiss="modal">No</button>
+                                        </div>
+                                    </form>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div> 
+
                     {% endfor %}    
                 </tbody>
                 </table>
