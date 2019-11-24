@@ -13,6 +13,8 @@ urlpatterns = [
     path('buyer_user_create/<int:sid>', views.buyer_user_create, name="buyer_user_create"),
     path('supplier_user_delete/<int:sid>', views.suppliers_delete, name="suppliers_delete"),
     path('buyer_user_delete/<int:sid>', views.buyers_delete, name="buyers_delete"),
+    path('supplier_user_delete/<int:cid>/<int:sid>', views.supplier_user_delete, name="supplier_user_delete"),
+
 
     # path('/index/', views.index, name="home")
     # path('/index/', views.index, name="home")

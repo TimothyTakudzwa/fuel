@@ -41,29 +41,34 @@ def buyers_delete(request, sid):
 
     return redirect('users:buyers_list')
 
+
+def supplier_user_delete(request,cid,sid):
+    contact = SupplierContact.objects.filter(id=cid).first()
+    if request.method == 'POST':
+        contact.delete()
+
+    return redirect('users:supplier_user_create', sid=sid)  
+
 # Begining Of Supplier Management
 
 def supplier_user_create(request, sid):
     supplier = get_object_or_404(SupplierProfile, id=sid) 
     staff = SupplierContact.objects.filter(supplier_profile=supplier)
     count = staff.count()
-    delete_form = ''
+    delete_form = ActionForm()
     edit_form = ''
     if request.method == 'POST':
         user_count = SupplierContact.objects.filter(supplier_profile=supplier).count()
         if user_count > 50:
             raise Http404("Organisations has 50 users, delete some ")
         form = SupplierContactForm(request.POST)
-        profile_form = UserUpdateForm(request.POST, instance=supplier)
         staffer_edit_form = SupplierStaffEditForm()
+        profile_form = UserUpdateForm(request.POST, instance=request.user)
 
         if profile_form.is_valid():
-            supplier.first_name = profile_form.first_name
-            supplier = profile_form.save()
+            profile_form.save()
             messages.success(request, 'Your Changes Have Been Saved')
             return redirect('users:supplier_user_create', sid=supplier.id)
-
-        
 
         if form.is_valid():
             first_name = form.cleaned_data['first_name']

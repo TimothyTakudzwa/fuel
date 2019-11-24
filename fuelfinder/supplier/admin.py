@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import SupplierProfile, FuelUpdate, FuelRequest, Province, Transaction, TokenAuthentication, SupplierRating
+from .models import SupplierProfile, FuelUpdate, FuelRequest, Province, Transaction, TokenAuthentication, \
+    SupplierRating, Offer
 
 
 admin.site.site_header = "FuelFinder Super Admin"
@@ -14,4 +15,5 @@ admin.site.register(Province)
 admin.site.register(Transaction)
 admin.site.register(TokenAuthentication)
 admin.site.register(SupplierRating)
+admin.site.register(Offer)
 

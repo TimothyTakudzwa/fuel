@@ -160,7 +160,7 @@ def account(request):
     return render(request, 'supplier/accounts/account.html', context=context)
 
 
-#@login_required()
+@login_required()
 def fuel_request(request):
     context = {
         'title': 'Fuel Finder | Fuel Request',

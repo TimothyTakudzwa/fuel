@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c36155b2-67ea-4c49-b53e-fabb163842cc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/finder/reccomend.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/supplier/templates/supplier/accounts/ratings.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buyer/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/buyer/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fuelfinder/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/fuelfinder/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/supplier/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/supplier/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/supplier/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/supplier/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="c36155b2-67ea-4c49-b53e-fabb163842cc" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +101,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574460531033</updated>
       <workItem from="1574460532283" duration="4412000" />
-      <workItem from="1574517528148" duration="5685000" />
+      <workItem from="1574517528148" duration="16996000" />
     </task>
     <servers />
   </component>
