@@ -46,6 +46,7 @@ class FuelUpdate(models.Model):
     closing_time = models.TimeField()
     max_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     min_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    fuel_type = models.CharField(max_length=20)
     deliver = models.BooleanField(default=False)
     payment_method = models.CharField(max_length=200)
     date = models.DateField()
@@ -71,6 +72,7 @@ class Transaction(models.Model):
     def __str__(self):
         return f'{str(self.request_name)} - {str(self.buyer_name)}'
 
+
 class Offer(models.Model):
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -80,7 +82,6 @@ class Offer(models.Model):
     class Meta:
         ordering = ['quantity']
 
-   
 
 class TokenAuthentication(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='token_name')

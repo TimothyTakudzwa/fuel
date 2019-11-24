@@ -1,12 +1,9 @@
 {% extends "users/base.html" %}
 {% block body %}
-<div class="jumbotron">
+<div >
     <h1 class="display-3">Buyer Admin Dashboard</h1>
     <hr class="my-2">
     
-    <p class="lead">
-        {{ buyer.name }}'s Profile
-    </p>
 </div>
 
 <div class="card text-center" style="max-width: 180rem;">
@@ -132,8 +129,8 @@
                  <tbody>
                      {% for staffer in staff %}
                      <tr>
-                         <td>{{staffer.name}}</td>
-                         <td>{{staffer.cellphone}}</td>
+                         <td>{{staffer.user.first_name}}</td>
+                         <td>{{staffer.phone}}</td>
                          <td>{{staffer.user.email}}</td>
                          <td>
                              <div class="btn-group">
@@ -148,14 +145,14 @@
                               <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                   <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">{{staffer.name}}</h5>
+                                  <h5 class="modal-title" id="exampleModalLabel">{{staffer.user.first_name}}</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                   </button>
                                   </div>
                                   <div class="modal-body">
-                                      <p>NAME: {{staffer.name}}</p>
-                                      <p>CELLPHONE: {{staffer.cellphone}}</p>
+                                      <p>NAME: {{staffer.user.first_name}}</p>
+                                      <p>CELLPHONE: {{staffer.phone}}</p>
                                       <p>EMAIL: {{staffer.user.email}}</p>
                                       
                                       
@@ -166,12 +163,12 @@
                               </div>
                               </div>
                           </div>
-                      <!-- Supplier Edit Modal -->
-                      <div class="modal fade" id="edit_{{buyer.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <!-- Buyer Edit Modal -->
+                      <div class="modal fade" id="edit_{{staffer.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                   <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Edit {{staffer.name}}</h5>
+                                  <h5 class="modal-title" id="exampleModalLabel">Edit {{staffer.user.first_name}}</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                   </button>
@@ -191,12 +188,12 @@
                               </div>
                           </div>
                           
-                      <!-- Supplier Delete Modal -->
-                      <div class="modal fade" id="delete_{{buyer.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <!-- Buyer Delete Modal -->
+                      <div class="modal fade" id="delete_{{staffer.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                   <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Delete {{staffer.name}}</h5>
+                                  <h5 class="modal-title" id="exampleModalLabel">Delete {{staffer.user.first_name}}</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                   </button>
@@ -206,7 +203,7 @@
                                           <form action="{% url 'users:buyers_delete' buyer.id %}" method="POST">
                                           {{ delete_form }}
                                           {% csrf_token %}
-                                          <p>Are You Sure You Want To Delete {{ buyer.name|title }}</p>
+                                          <p>Are You Sure You Want To Delete {{ staffer.user.first_name|title }}</p>
                                               <div class="btn-group">
                                                   <button class="btn btn-danger" type="submit">Yes</button>
                                                   <button class="btn btn-warning" data-dismiss="modal">No</button>

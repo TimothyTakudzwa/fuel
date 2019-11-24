@@ -6,8 +6,10 @@ from supplier.forms import *
 from buyer.models import *
 from buyer.forms import *
 from .forms import *
-
+import secrets
+from django.core.mail import BadHeaderError, EmailMultiAlternatives
 from datetime import datetime
+from django.contrib import messages
 
 def index(request):
     return render(request, 'users/index.html')
@@ -69,16 +71,36 @@ def supplier_user_create(request, sid):
             return redirect('users:supplier_user_create', sid=supplier.id)
 
         if form.is_valid():
+            first_name = form.cleaned_data['first_name']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             cellphone = form.cleaned_data['cellphone']
             telephone = form.cleaned_data['telephone']
 
-            user = User.objects.create_user(email, email, password)
+            user = User.objects.create_user(first_name, email, password)
             user.last_name = form.cleaned_data['last_name']
             user.first_name = form.cleaned_data['first_name']
             user.save()   
             contact = SupplierContact.objects.create(user=user, cellphone=cellphone, telephone=telephone, supplier_profile=supplier)
+
+            token = secrets.token_hex(12)
+            domain = request.get_host()
+            url = f'{domain}/verification/{token}/{user.id}'
+
+            sender = f'Fuel Finder Accounts<tests@marlvinzw.me>'
+            subject = 'User Registration'
+            message = f"Dear {first_name} , please complete signup here : \n {url} \n. Your password is {password}"
+            
+            try:
+                msg = EmailMultiAlternatives(subject, message, sender, [f'{email}'])
+                msg.send()
+
+                messages.success(request, f"{first_name} Registered Successfully")
+                return redirect('users:suppliers_list')
+
+            except BadHeaderError:
+                messages.warning(request, f"Oops , Something Wen't Wrong, Please Try Again")
+                return redirect('users:suppliers_list')
             #contact.save()
             messages.success(request, ('Your profile was successfully updated!'))
             return redirect('users:supplier_user_create', sid=supplier.id)
@@ -119,14 +141,34 @@ def buyer_user_create(request, sid):
         
 
         if form.is_valid():
+            first_name = form.cleaned_data['first_name']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             cellphone = form.cleaned_data['phone']
-            user = User.objects.create_user(email, email, password)
+            user = User.objects.create_user(first_name, email, password)
             user.last_name = form.cleaned_data['last_name']
             user.first_name = form.cleaned_data['first_name']
             user.save()   
             contact = BuyerContact.objects.create(user=user, phone=cellphone, buyer_profile=buyer)
+
+            token = secrets.token_hex(12)
+            domain = request.get_host()
+            url = f'{domain}/verification/{token}/{user.id}'
+
+            sender = f'Fuel Finder Accounts<tests@marlvinzw.me>'
+            subject = 'User Registration'
+            message = f"Dear {first_name} , please complete signup here : \n {url} \n. Your password is {password}"
+            
+            try:
+                msg = EmailMultiAlternatives(subject, message, sender, [f'{email}'])
+                msg.send()
+
+                messages.success(request, f"{first_name} Registered Successfully")
+                return redirect('users:buyers_list')
+
+            except BadHeaderError:
+                messages.warning(request, f"Oops , Something Wen't Wrong, Please Try Again")
+                return redirect('users:buyers_list')
             #contact.save()
             messages.success(request, ('Your profile was successfully updated!'))
             return redirect('users:buyer_user_create', sid=buyer.id)
