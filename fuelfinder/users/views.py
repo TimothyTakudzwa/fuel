@@ -59,8 +59,8 @@ def supplier_user_create(request, sid):
     edit_form = ''
     if request.method == 'POST':
         user_count = SupplierContact.objects.filter(supplier_profile=supplier).count()
-        if user_count > 50:
-            raise Http404("Organisations has 50 users, delete some ")
+        if user_count > 5:
+            raise Http404("Organisations has 5 users, delete some ")
         form = SupplierContactForm(request.POST)
         staffer_edit_form = SupplierStaffEditForm()
         profile_form = UserUpdateForm(request.POST, instance=request.user)
