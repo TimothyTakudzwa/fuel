@@ -22,6 +22,10 @@ def validate_user_email(value):
         raise ValidationError('%(value)s is already registered',
             params={'value': value},)
 
+class SupplierStaffEditForm(forms.ModelForm):
+    class Meta:
+        model = SupplierContact
+        fields = ['telephone', 'cellphone', 'active']
 class SupplierContactForm(forms.Form):
     first_name = forms.CharField(label='First Name(s)', required=True,
                                 max_length=30)
@@ -44,6 +48,23 @@ class SupplierContactForm(forms.Form):
         password2 = cleaned_data.get("password2")
         if password != password2:
             raise forms.ValidationError("The passwords do not match!")
+
+
+class SupplierProfileEditForm(forms.Form):
+    name = forms.CharField(label='Name(s)', required=True,
+                                max_length=30)
+    bpn = forms.CharField(label='BPN', required=True,
+                                max_length=30)
+    phone = forms.CharField(label='Phone', required=True,
+                                max_length=30)
+    street = forms.CharField(label='Street', required=True,
+                                max_length=30)
+    city = forms.CharField(label='City', required=True,
+                                max_length=30)
+    province = forms.CharField(label='Province', required=True,
+                                max_length=30)
+
+
 class ActionForm(forms.Form):
     pass                    
 
