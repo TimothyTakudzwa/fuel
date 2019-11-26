@@ -37,6 +37,7 @@ def register(request):
             user.save()
 
             token = secrets.token_hex(12)
+            TokenAuthentication.objects.create(token=token, user=user)
             domain = request.get_host()
             url = f'{domain}/verification/{token}/{user.id}'
 
@@ -64,10 +65,10 @@ def verification(request, token, user_id):
     context = {
         'title': 'Fuel Finder | Verification',
     }
-    check = User.objects.filter(id=user_id)
+    check = User.objects.filter(id=int(user_id))
 
     if check.exists():
-        user = User.objects.get(id=user_id)
+        user = User.objects.get(id=int(user_id))
 
         token_check = TokenAuthentication.objects.filter(user=user, token=token)
         if token_check.exists():
